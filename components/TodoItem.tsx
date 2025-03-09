@@ -16,7 +16,7 @@ const TodoItem: React.FC<Props> = ({ task, deleteTask, toggleCompleted }) => {
         value={task.completed}
         onValueChange={() => toggleCompleted(task.id)}
       />
-      <View className="grow mx-2">
+      <View className="flex-1 grow mx-2">
         <Text className={"text-gray-700 " + (task.completed ? "line-through text-gray-500" : "")}>
           {task.text}
         </Text>
