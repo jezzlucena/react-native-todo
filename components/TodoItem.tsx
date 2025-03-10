@@ -1,31 +1,33 @@
-import CheckBox from 'expo-checkbox';
+import BouncyCheckbox from "react-native-bouncy-checkbox";
 import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View } from 'react-native';
 import { Task } from '../types/Task';
+import { Text } from "react-native-gesture-handler";
 
-interface Props {
+interface IProps {
   task: Task,
-  deleteTask: (id: number) => void,
-  toggleCompleted: (id: number) => void
+  toggleCompleted: (id: number) => void,
 }
 
-const TodoItem: React.FC<Props> = ({ task, deleteTask, toggleCompleted }) => {
+const TodoItem: React.FC<IProps> = ({ task, toggleCompleted }) => {
   return (
-    <View className="flex flex-row justify-between items-center mb-2 p-2 border border-solid border-gray-300 rounded">
-      <CheckBox
-        value={task.completed}
-        onValueChange={() => toggleCompleted(task.id)}
+    <View className="flex flex-row items-start align-top pl-3 bg-white">
+      <BouncyCheckbox
+        fillColor="rgb(59 130 246)"
+        isChecked={task.completed}
+        onPress={() => toggleCompleted(task.id)}
+        className="w-[42px] mt-4"
+        size={26}
       />
-      <View className="flex-1 grow mx-2">
-        <Text className={"text-gray-700 " + (task.completed ? "line-through text-gray-500" : "")}>
-          {task.text}
+      <View className="flex-1 text-wrap flex-wrap break-words border-b border-solid border-gray-300">
+        <Text
+          className={"w-[100%] my-4 pr-2 text-gray-700 text-lg border-none bg-transparent " + (task.completed ? "line-through" : "")}
+        >
+          { task.text }
         </Text>
       </View>
-      <TouchableOpacity className="bg-red-500 py-1 px-2 border-none rounded cursor-pointer text-xs" onPress={() => deleteTask(task.id)}>
-        <Text className="text-white">X</Text>
-      </TouchableOpacity>
     </View>
-  );
-}
+  )
+};
 
 export default TodoItem;
